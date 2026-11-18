@@ -1,0 +1,3366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RCB Cricket Zone - Practicums 9, 10, 11, 12, 13, 14 and 15</title>
+<script>
+(function () {
+    let savedTheme = null;
+    try { savedTheme = localStorage.getItem("rcbCricketZoneTheme"); } catch (error) {}
+    const theme = savedTheme === "light" || savedTheme === "dark"
+        ? savedTheme
+        : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    document.documentElement.dataset.theme = theme;
+})();
+</script>
+
+<style>
+
+/* GENERAL */
+body {
+    font-family: Arial, sans-serif;
+    background: #f1f1f1;
+    color: #45484d;
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* STICKY HEADER */
+header {
+    background: white;
+    text-align: center;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+header h1 {
+    color: #b5122b;
+    margin: 0;
+}
+
+nav a {
+    color: #45484d;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #b5122b;
+    text-decoration: underline;
+}
+
+/* DROPDOWN */
+.dropdown {
+    display: inline-block;
+    position: relative;
+}
+
+.dropdown button {
+    background: none;
+    color: #45484d;
+    border: none;
+    padding: 0;
+    margin: 0 10px;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dropdown button:hover {
+    background: none;
+    color: #b5122b;
+    text-decoration: underline;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 160px;
+    background: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    text-align: left;
+    z-index: 101;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 8px 12px;
+    margin: 0;
+}
+
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
+    display: block;
+}
+
+/* AUDIO */
+.music {
+    background: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* PRACTICUM 9: ANIMATED ANNOUNCEMENT */
+.announcement {
+    background: #10152c;
+    color: white;
+    padding: 12px 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.announcement-track {
+    display: inline-block;
+    min-width: 100%;
+    animation: slideText 14s linear infinite;
+}
+
+.announcement-track span {
+    display: inline-block;
+    padding-left: 100%;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* SLIDING TEXT KEYFRAMES */
+@keyframes slideText {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* ANNOUNCEMENT CONTROLS */
+.animation-controls {
+    background: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.animation-controls button {
+    background: #b5122b;
+    color: white;
+    border: none;
+    padding: 9px 16px;
+    margin: 4px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.animation-controls button:hover {
+    background: #801020;
+}
+
+/* HERO BANNER */
+.hero {
+    position: relative;
+    height: 300px;
+    overflow: hidden;
+    background: #10152c;
+}
+
+.banner {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    opacity: 0.78;
+
+    /* PRACTICUM 9: BANNER ZOOM ANIMATION */
+    animation: bannerZoom 12s ease-in-out infinite alternate;
+}
+
+@keyframes bannerZoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.12);
+    }
+}
+
+.hero-content {
+    position: absolute;
+    left: 7%;
+    bottom: 28px;
+    z-index: 2;
+    color: white;
+    max-width: 560px;
+    text-shadow: 0 2px 5px black;
+}
+
+.hero-content h2 {
+    font-size: clamp(28px, 4vw, 46px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+}
+
+/* PRACTICUM 9: PULSING BADGE */
+.live-tag {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    z-index: 3;
+    background: #b5122b;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+
+    animation: pulseBadge 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseBadge {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(181,18,43,0);
+    }
+
+    50% {
+        transform: scale(1.12);
+        box-shadow: 0 0 15px rgba(181,18,43,0.8);
+    }
+}
+
+/* PAGE LAYOUT */
+.page-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    width: 94%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+/* SIDEBAR */
+.sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    background: white;
+    border-left: 5px solid #b5122b;
+    border-radius: 8px;
+    padding: 15px;
+    box-sizing: border-box;
+    position: sticky;
+    top: 125px;
+}
+
+.sidebar h2 {
+    color: #b5122b;
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.sidebar a {
+    display: block;
+    color: #45484d;
+    padding: 7px 0;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    color: #b5122b;
+}
+
+.main-content {
+    min-width: 0;
+    flex: 1;
+}
+
+/* MEDIA SECTION */
+.media {
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+}
+
+.section-heading {
+    border-left: 5px solid #b5122b;
+    padding-left: 12px;
+    margin-bottom: 15px;
+}
+
+/* STATISTICS */
+.feature-strip {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 22px 0;
+}
+
+.feature {
+    flex: 1 1 150px;
+    background: white;
+    padding: 15px;
+    border-radius: 7px;
+    border-bottom: 3px solid #d5a928;
+}
+
+.feature strong {
+    display: block;
+    font-size: 22px;
+    color: #b5122b;
+}
+
+/* MEDIA BOXES */
+.box {
+    width: 48%;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 1% 18px 0;
+    padding: 12px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+.box h3 {
+    margin: 0 0 10px;
+}
+
+.box iframe,
+.box video {
+    width: 100%;
+    height: 250px;
+    border: 0;
+    display: block;
+    border-radius: 4px;
+}
+
+.media-tag {
+    position: absolute;
+    top: 22px;
+    right: 22px;
+    z-index: 2;
+    background: #b5122b;
+    color: white;
+    font-size: 11px;
+    padding: 4px 7px;
+    border-radius: 3px;
+}
+
+/* GALLERY */
+.gallery-section {
+    width: 100%;
+    margin: 28px auto;
+}
+
+.gallery-intro {
+    color: #666a70;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* PRACTICUM 9: GALLERY CARD ANIMATION */
+.gallery-card {
+    min-width: 0;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+
+    transition: transform 0.35s ease,
+                box-shadow 0.35s ease;
+}
+
+/* CARD LIFT EFFECT */
+.gallery-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 22px rgba(0,0,0,0.18);
+}
+
+.gallery-open {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: #10152c;
+    overflow: hidden;
+}
+
+.gallery-open img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+
+    /* IMAGE ZOOM TRANSITION */
+    transition: transform 0.4s ease;
+}
+
+.gallery-open:hover img,
+.gallery-open:focus-visible img {
+    transform: scale(1.08);
+}
+
+.gallery-caption {
+    padding: 12px 14px;
+    margin: 0;
+    font-weight: bold;
+}
+
+/* LIGHTBOX */
+.lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0,0,0,0.92);
+}
+
+.lightbox.open {
+    display: flex;
+}
+
+.lightbox-content {
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+.lightbox-image {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    margin: 0 auto;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.lightbox-caption {
+    margin: 12px 0 0;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 14px;
+    right: 22px;
+    padding: 5px 12px;
+    background: #b5122b;
+    color: white;
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.gallery-open:focus-visible,
+.lightbox-close:focus-visible {
+    outline: 3px solid #d5a928;
+    outline-offset: 3px;
+}
+
+/* MATCH UPDATES */
+.race-card {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 18px 0;
+    border-left: 5px solid #b5122b;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+
+.race-card h3 {
+    margin-top: 0;
+    padding-right: 90px;
+}
+
+.race-card p {
+    margin-bottom: 0;
+}
+
+.card-status {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: #f4e5e6;
+    color: #8b202b;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 4px;
+}
+
+/* MATCH SCHEDULE */
+.schedule {
+    position: relative;
+    margin: 20px 0;
+    padding: 5px 0 5px 28px;
+    border-left: 3px solid #b5122b;
+}
+
+.schedule-item {
+    position: relative;
+    background: white;
+    margin: 0 0 14px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 7px rgba(0,0,0,0.06);
+}
+
+.schedule-item::before {
+    content: "";
+    position: absolute;
+    left: -37px;
+    top: 17px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: #b5122b;
+    border: 3px solid #f1f1f1;
+}
+
+.schedule-item strong {
+    color: #b5122b;
+}
+
+/* REGISTRATION FORM */
+.form-section {
+    position: relative;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    background: white;
+    padding: 18px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.form-section h2 {
+    color: #b5122b;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background: #b5122b;
+    color: white;
+    border: 0;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background: #801020;
+}
+
+/* PRACTICUM 11: CRICKET GEAR ORDER AND BILL CALCULATION */
+.gear-order-section {
+    max-width: 760px;
+    border-top: 4px solid #d5a928;
+}
+
+.gear-order-intro {
+    color: #666a70;
+}
+
+.gear-products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.gear-option {
+    min-width: 0;
+    padding: 14px;
+    background: #f8f8f8;
+    border-left: 4px solid #b5122b;
+    border-radius: 6px;
+}
+
+.gear-option h3 {
+    margin: 0 0 5px;
+    color: #10152c;
+}
+
+.gear-option p {
+    margin: 0 0 8px;
+    color: #666a70;
+}
+
+.gear-option label {
+    display: block;
+    color: #b5122b;
+    font-weight: bold;
+}
+
+.gear-option input {
+    width: 100%;
+    padding: 9px;
+    margin-top: 6px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.gear-option input:focus {
+    outline: 2px solid #d5a928;
+    outline-offset: 2px;
+}
+
+.gear-bill {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 12px 14px;
+    background: #10152c;
+    border-radius: 5px;
+    color: white;
+}
+
+.gear-bill output {
+    color: #f3d564;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.gear-order-feedback {
+    min-height: 1.5em;
+    margin: 10px 0 0;
+    color: #b5122b;
+}
+
+.gear-order-feedback.success {
+    color: #18723b;
+}
+
+@media (max-width: 600px) {
+    .gear-products {
+        grid-template-columns: 1fr;
+    }
+
+    .gear-bill {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* PRACTICUM 12: ENDPOINT DATA MANAGEMENT */
+.endpoint-section {
+    max-width: 900px;
+    border-top: 4px solid #d5a928;
+}
+
+.endpoint-intro,
+.endpoint-demo-note {
+    color: #666a70;
+}
+
+.endpoint-demo-note {
+    padding: 10px 12px;
+    background: #f8f8f8;
+    border-left: 4px solid #d5a928;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.endpoint-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 18px 0 10px;
+}
+
+.endpoint-toolbar h3 {
+    margin: 0;
+    color: #10152c;
+}
+
+.endpoint-status {
+    min-height: 1.5em;
+    margin: 10px 0;
+    color: #b5122b;
+}
+
+.endpoint-status.success {
+    color: #18723b;
+}
+
+.endpoint-update-list {
+    display: grid;
+    gap: 12px;
+}
+
+.endpoint-update-card {
+    padding: 14px;
+    background: #f8f8f8;
+    border-left: 4px solid #b5122b;
+    border-radius: 6px;
+}
+
+.endpoint-update-card h4 {
+    margin: 0 0 7px;
+    color: #10152c;
+}
+
+.endpoint-update-card p {
+    margin: 0 0 12px;
+    color: #45484d;
+    white-space: pre-wrap;
+}
+
+.endpoint-update-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.endpoint-update-actions .delete-update {
+    background: #10152c;
+}
+
+.endpoint-update-actions .delete-update:hover {
+    background: #2b355e;
+}
+
+.endpoint-form {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #ddd;
+}
+
+.endpoint-form h3 {
+    margin-top: 0;
+    color: #b5122b;
+}
+
+.endpoint-form label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+.endpoint-form input,
+.endpoint-form textarea {
+    width: 100%;
+    padding: 9px;
+    margin: 5px 0 12px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.endpoint-form input:focus,
+.endpoint-form textarea:focus {
+    outline: 2px solid #d5a928;
+    outline-offset: 2px;
+}
+
+.endpoint-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.endpoint-form button:disabled,
+.endpoint-toolbar button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+@media (max-width: 600px) {
+    .endpoint-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* PRACTICUM 13: RCB TASK MANAGER */
+.task-manager-section {
+    max-width: 860px;
+    border-top: 4px solid #d5a928;
+}
+
+.task-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 16px 0 10px;
+}
+
+.task-filter-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.task-filter-group label {
+    font-weight: bold;
+}
+
+.task-filter-group select,
+.task-form input,
+.task-form select {
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font: inherit;
+}
+
+.task-status {
+    min-height: 1.5em;
+    margin: 10px 0;
+    color: #666a70;
+}
+
+.task-status.success {
+    color: #18723b;
+}
+
+.task-status.error {
+    color: #b5122b;
+}
+
+.task-list {
+    display: grid;
+    gap: 10px;
+}
+
+.task-card {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    padding: 13px;
+    background: #f8f8f8;
+    border-left: 4px solid #b5122b;
+    border-radius: 6px;
+}
+
+.task-card.completed {
+    border-left-color: #18723b;
+    opacity: 0.78;
+}
+
+.task-check {
+    width: 20px;
+    height: 20px;
+    accent-color: #b5122b;
+}
+
+.task-card-content {
+    min-width: 0;
+}
+
+.task-card h3 {
+    margin: 0 0 6px;
+    color: #10152c;
+    overflow-wrap: anywhere;
+}
+
+.task-card.completed h3 {
+    text-decoration: line-through;
+}
+
+.task-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    color: #666a70;
+    font-size: 13px;
+}
+
+.task-priority {
+    padding: 2px 7px;
+    border-radius: 10px;
+    background: #ececec;
+    color: #45484d;
+    font-weight: bold;
+}
+
+.task-priority.high {
+    background: #f4e5e6;
+    color: #8b202b;
+}
+
+.task-priority.low {
+    background: #fff4d6;
+    color: #755c16;
+}
+
+.task-card-actions,
+.task-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.task-card-actions .delete-task,
+.task-form-actions .cancel-task-edit {
+    background: #10152c;
+}
+
+.task-card-actions .delete-task:hover,
+.task-form-actions .cancel-task-edit:hover {
+    background: #2b355e;
+}
+
+.task-form {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #ddd;
+}
+
+.task-form h3 {
+    margin-top: 0;
+    color: #b5122b;
+}
+
+.task-form-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(150px, 1fr) minmax(130px, 1fr);
+    gap: 12px;
+}
+
+.task-form-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.task-form-field input,
+.task-form-field select {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.task-form-field input:focus,
+.task-form-field select:focus,
+.task-filter-group select:focus {
+    outline: 2px solid #d5a928;
+    outline-offset: 2px;
+}
+
+.task-form-actions {
+    margin-top: 14px;
+}
+
+.task-empty {
+    padding: 14px;
+    background: #f8f8f8;
+    border-radius: 6px;
+    color: #666a70;
+}
+
+@media (max-width: 700px) {
+    .task-form-fields {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .task-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .task-card {
+        grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .task-card-actions {
+        grid-column: 2;
+    }
+}
+
+/* PRACTICUM 14: RCB INTERACTIVE QUIZ */
+.quiz-section {
+    max-width: 760px;
+    border-top: 4px solid #d5a928;
+}
+
+.quiz-screen[hidden] {
+    display: none;
+}
+
+.quiz-progress {
+    margin: 10px 0;
+    color: #666a70;
+    font-weight: bold;
+}
+
+.quiz-question {
+    margin: 12px 0 16px;
+    color: #10152c;
+}
+
+.quiz-options {
+    display: grid;
+    gap: 9px;
+}
+
+.quiz-option-button {
+    width: 100%;
+    margin: 0;
+    padding: 12px 14px;
+    background: white;
+    color: #45484d;
+    border: 1px solid #ddd;
+    border-left: 4px solid #b5122b;
+    text-align: left;
+    font: inherit;
+}
+
+.quiz-option-button:hover:not(:disabled) {
+    background: #f4e5e6;
+    color: #45484d;
+}
+
+.quiz-option-button:focus-visible,
+.quiz-action:focus-visible {
+    outline: 3px solid #d5a928;
+    outline-offset: 2px;
+}
+
+.quiz-option-button.correct {
+    border-left-color: #18723b;
+    background: #eaf5ed;
+}
+
+.quiz-option-button.incorrect {
+    border-left-color: #b5122b;
+    background: #f8e9ea;
+}
+
+.quiz-feedback {
+    min-height: 1.5em;
+    margin: 12px 0;
+    color: #b5122b;
+    font-weight: bold;
+}
+
+.quiz-result {
+    padding: 18px;
+    background: #10152c;
+    border-radius: 7px;
+    color: white;
+    text-align: center;
+}
+
+.quiz-result h3 {
+    margin-top: 0;
+    color: #f3d564;
+}
+
+.quiz-score {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.quiz-action:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+/* FOOTER */
+footer {
+    background: #10152c;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    clear: both;
+}
+
+/* TABLET RESPONSIVENESS */
+@media (max-width: 900px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .page-layout {
+        gap: 16px;
+    }
+
+    .box iframe,
+    .box video {
+        height: 220px;
+    }
+}
+
+/* SMALL TABLETS */
+@media (max-width: 800px) {
+    .page-layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+        margin-bottom: 20px;
+        position: static;
+    }
+
+    .sidebar a {
+        display: inline-block;
+        margin-right: 12px;
+    }
+}
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 700px) {
+    .box {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .hero {
+        height: 220px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 5px 8px;
+    }
+
+    .hero-content {
+        left: 5%;
+        right: 5%;
+        bottom: 20px;
+    }
+
+    .live-tag {
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* PRACTICUM 8: MEDIA QUERIES */
+@media (max-width: 600px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .gallery-section {
+        width: 92%;
+    }
+
+    .gallery-open img {
+        aspect-ratio: 16 / 10;
+    }
+
+    .lightbox {
+        padding: 12px;
+    }
+
+    .lightbox-image {
+        max-height: 65vh;
+    }
+
+    .gallery-caption {
+        padding: 10px 12px;
+    }
+
+    .box iframe,
+    .box video {
+        height: 200px;
+    }
+
+    .form-section {
+        width: 92%;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 380px) {
+    body {
+        font-size: 15px;
+    }
+
+    .hero-content h2 {
+        font-size: 26px;
+    }
+
+    .live-tag {
+        font-size: 10px;
+        padding: 5px 7px;
+    }
+
+    .gallery-grid {
+        gap: 10px;
+    }
+}
+
+/* PRACTICUM 9: ACCESSIBILITY */
+@media (prefers-reduced-motion: reduce) {
+    .announcement-track,
+    .banner,
+    .live-tag {
+        animation: none;
+    }
+
+    .gallery-card,
+    .gallery-open img {
+        transition: none;
+    }
+}
+
+
+
+/* PRACTICUM 10: DOM INTERACTION ELEMENTS */
+.dom-section {
+    background: white;
+    padding: 18px;
+    margin: 24px 0;
+    border-radius: 8px;
+    border-left: 5px solid #b5122b;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+.dom-section h2,
+.dom-section h3 {
+    color: #b5122b;
+}
+.dom-control {
+    margin: 12px 0;
+}
+.dom-control label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.dom-control input,
+.dom-control select {
+    width: 100%;
+    max-width: 420px;
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.dom-message {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    background: #f4e5e6;
+    color: #8b202b;
+}
+.dom-message.success {
+    background: #e7f4e8;
+    color: #216b2b;
+}
+.dom-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+}
+.dom-feed-item {
+    background: #f7f7f7;
+    border-left: 4px solid #d5a928;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 4px;
+}
+.form-feedback {
+    font-size: 14px;
+    margin: -8px 0 12px;
+    color: #8b202b;
+}
+
+/* PRACTICUM 15: LIGHT AND DARK THEMES */
+html[data-theme="light"] {
+    color-scheme: light;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin: 5px 8px;
+    padding: 7px 12px;
+    border-radius: 4px;
+}
+
+html[data-theme="dark"] body {
+    background: #0b1020;
+    color: #eef1f8;
+}
+
+html[data-theme="dark"] header,
+html[data-theme="dark"] .music,
+html[data-theme="dark"] .animation-controls,
+html[data-theme="dark"] .dropdown-content,
+html[data-theme="dark"] .sidebar,
+html[data-theme="dark"] .feature,
+html[data-theme="dark"] .box,
+html[data-theme="dark"] .gallery-card,
+html[data-theme="dark"] .race-card,
+html[data-theme="dark"] .schedule-item,
+html[data-theme="dark"] .form-section,
+html[data-theme="dark"] .dom-section {
+    background: #171e34;
+    color: #eef1f8;
+}
+
+html[data-theme="dark"] .cake-option,
+html[data-theme="dark"] .endpoint-demo-note,
+html[data-theme="dark"] .endpoint-update-card,
+html[data-theme="dark"] .task-card,
+html[data-theme="dark"] .task-empty,
+html[data-theme="dark"] .dom-feed-item {
+    background: #202943;
+    color: #eef1f8;
+}
+
+html[data-theme="dark"] nav a,
+html[data-theme="dark"] .dropdown button,
+html[data-theme="dark"] .sidebar a,
+html[data-theme="dark"] .gallery-caption,
+html[data-theme="dark"] .gallery-intro,
+html[data-theme="dark"] .cake-order-intro,
+html[data-theme="dark"] .endpoint-intro,
+html[data-theme="dark"] .task-meta,
+html[data-theme="dark"] .quiz-progress {
+    color: #d2d8e8;
+}
+
+html[data-theme="dark"] .dropdown button:hover,
+html[data-theme="dark"] nav a:hover,
+html[data-theme="dark"] .sidebar a:hover {
+    color: #f3d564;
+}
+
+html[data-theme="dark"] .sidebar,
+html[data-theme="dark"] .feature,
+html[data-theme="dark"] .box,
+html[data-theme="dark"] .gallery-card,
+html[data-theme="dark"] .race-card,
+html[data-theme="dark"] .schedule-item,
+html[data-theme="dark"] .form-section,
+html[data-theme="dark"] .dom-section,
+html[data-theme="dark"] .task-card,
+html[data-theme="dark"] .endpoint-update-card {
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+html[data-theme="dark"] input:not([type="checkbox"]),
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background: #10172b;
+    color: #f1f3f8;
+    border-color: #59637e;
+}
+
+html[data-theme="dark"] input::placeholder,
+html[data-theme="dark"] textarea::placeholder {
+    color: #aeb7ce;
+}
+
+html[data-theme="dark"] .card-status {
+    background: #3a2632;
+    color: #ffccd2;
+}
+
+html[data-theme="dark"] .task-priority {
+    background: #303951;
+    color: #eef1f8;
+}
+
+html[data-theme="dark"] .task-priority.high {
+    background: #492a37;
+    color: #ffd5dc;
+}
+
+html[data-theme="dark"] .task-priority.low {
+    background: #443b25;
+    color: #ffe7a3;
+}
+
+html[data-theme="dark"] .dom-message {
+    background: #3a2632;
+    color: #ffd5dc;
+}
+
+html[data-theme="dark"] .dom-message.success {
+    background: #1d3b30;
+    color: #c8f1d8;
+}
+
+html[data-theme="dark"] .quiz-option-button {
+    background: #202943;
+    color: #eef1f8;
+    border-color: #46516e;
+    border-left-color: #b5122b;
+}
+
+html[data-theme="dark"] .quiz-option-button:hover:not(:disabled) {
+    background: #2a3552;
+    color: white;
+}
+
+html[data-theme="dark"] .quiz-option-button.correct {
+    background: #1d3b30;
+    border-left-color: #5ec58a;
+}
+
+html[data-theme="dark"] .quiz-option-button.incorrect {
+    background: #492a37;
+    border-left-color: #ff6577;
+}
+
+html[data-theme="dark"] .quiz-question {
+    color: #f1f3f8;
+}
+
+html[data-theme="dark"] .quiz-feedback,
+html[data-theme="dark"] .endpoint-status.error,
+html[data-theme="dark"] .task-status.error {
+    color: #ff9ba6;
+}
+
+html[data-theme="dark"] .endpoint-status.success,
+html[data-theme="dark"] .task-status.success {
+    color: #8de0aa;
+}
+
+html[data-theme="dark"] .gallery-card,
+html[data-theme="dark"] .schedule-item {
+    border-color: #313c5a;
+}
+
+/* RCB DATA MANAGER: WHITE ENTRY AND UPDATE TEXT */
+.endpoint-form input,
+.endpoint-form textarea {
+    background: #10152c;
+    color: #ffffff;
+    border-color: #59637e;
+}
+
+.endpoint-form input::placeholder,
+.endpoint-form textarea::placeholder {
+    color: #d2d8e8;
+    opacity: 1;
+}
+
+.endpoint-update-card {
+    background: #10152c;
+}
+
+.endpoint-update-card h4,
+.endpoint-update-card p {
+    color: #ffffff;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <h1>ROYAL CHALLENGERS BENGALURU</h1>
+    <p>PLAY BOLD. PLAY ROYAL. PLAY FOR VICTORY.</p>
+
+    <nav>
+        <a href="#media">Media</a>
+        <a href="#gallery">Gallery</a>
+
+        <div class="dropdown">
+            <button type="button">Cricket Updates ▼</button>
+
+            <div class="dropdown-content">
+                <a href="#race-info">Match Updates</a>
+                <a href="#application">Join Us</a>
+                <a href="#gear-order">Cricket Gear Order</a>
+                <a href="#endpoint-management">Match Data</a>
+                <a href="#task-manager">Task Manager</a>
+                <a href="#interactive-quiz">Quiz</a>
+                <button class="theme-toggle" type="button" id="theme-toggle" aria-pressed="false">
+                    <span id="theme-toggle-icon" aria-hidden="true">&#9790;</span>
+                    <span id="theme-toggle-label">Dark Mode</span>
+                </button>
+                <a href="#media">Media Elements</a>
+                <a href="#gallery">Image Gallery</a>
+                <a href="#schedule">Match Schedule</a>
+            </div>
+        </div>
+
+        <a href="#application">Register</a>
+    </nav>
+</header>
+
+<!-- AUDIO -->
+<div class="music">
+    <p>Play Cricket Music:</p>
+
+    <audio controls>
+        <source src="audio.mpeg" type="audio/mpeg">
+        Your browser does not support audio.
+    </audio>
+</div>
+
+<!-- PRACTICUM 9: ANIMATED ANNOUNCEMENT -->
+<div class="announcement">
+
+    <div class="announcement-track" id="announcement-track">
+        <span>
+            WELCOME TO RCB CRICKET ZONE!
+            &nbsp;&nbsp;&nbsp; PLAY BOLD!
+            &nbsp;&nbsp;&nbsp; SUPPORT ROYAL CHALLENGERS BENGALURU!
+            &nbsp;&nbsp;&nbsp; ONE TEAM. ONE DREAM!
+        </span>
+    </div>
+
+</div>
+
+<!-- ANIMATION CONTROLS -->
+<div class="animation-controls">
+
+    <button type="button" id="pause-btn">
+        Pause Animation
+    </button>
+
+    <button type="button" id="play-btn">
+        Play Animation
+    </button>
+
+    <button type="button" id="restart-btn">
+        Restart Animation
+    </button>
+
+</div>
+
+<!-- HERO BANNER -->
+<section class="hero">
+
+    <img class="banner"
+         src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1600"
+         alt="Cricket stadium">
+
+    <span class="live-tag">CHAMPIONS</span>
+
+    <div class="hero-content">
+        <h2>PLAY BOLD.<br>WIN BIG.</h2>
+        <p>One Team. One Dream. One Royal Family.</p>
+    </div>
+
+</section>
+
+<!-- MAIN PAGE LAYOUT -->
+<div class="page-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <h2>RCB Cricket Hub</h2>
+
+        <p>
+            Welcome to the Royal Challengers Bengaluru Cricket Zone!
+        </p>
+
+        <a href="#media">Media Elements</a>
+        <a href="#gallery">Image Gallery</a>
+        <a href="#race-info">Match Updates</a>
+        <a href="#schedule">Match Schedule</a>
+        <a href="#application">Join the Team</a>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- MEDIA SECTION -->
+        <section class="media" id="media">
+
+            <h2 class="section-heading">Inside Cricket Zone</h2>
+
+            <!-- STATISTICS -->
+            <div class="feature-strip">
+
+                <div class="feature">
+                    <strong>11</strong>
+                    <span>Players per Team</span>
+                </div>
+
+                <div class="feature">
+                    <strong>20</strong>
+                    <span>Overs in T20 Cricket</span>
+                </div>
+
+                <div class="feature">
+                    <strong>6</strong>
+                    <span>Runs for a Six</span>
+                </div>
+
+            </div>
+
+            <!-- PDF -->
+            <div class="box">
+
+                <span class="media-tag">GUIDE</span>
+
+                <h3>Cricket Rules</h3>
+
+                <iframe src="Cricket_Basics.pdf"
+                        title="Cricket Rules PDF">
+                </iframe>
+
+            </div>
+
+            <!-- YOUTUBE VIDEO -->
+            <div class="box">
+
+                <span class="media-tag">VIDEO</span>
+
+                <h3>Cricket Highlights</h3>
+
+                <iframe
+                    src="https://www.youtube.com/embed/pq7t0PLBfQY"
+                    title="Cricket Highlights Video"
+                    allowfullscreen>
+                </iframe>
+
+            </div>
+
+            <!-- LOCAL VIDEO -->
+            <div class="box">
+
+                <span class="media-tag">MATCH</span>
+
+                <h3>Cricket Match Video</h3>
+
+                <video controls>
+                    <source src="V.mp4" type="video/mp4">
+                    Your browser does not support video.
+                </video>
+
+            </div>
+
+            <!-- GOOGLE MAPS -->
+            <div class="box">
+
+                <span class="media-tag">LOCATION</span>
+
+                <h3>M. Chinnaswamy Stadium</h3>
+
+                <iframe
+                    src="https://www.google.com/maps?q=M.+Chinnaswamy+Stadium+Bengaluru&output=embed"
+                    title="Chinnaswamy Stadium Location"
+                    loading="lazy">
+                </iframe>
+
+            </div>
+
+        </section>
+
+        <!-- IMAGE GALLERY -->
+        <section class="gallery-section" id="gallery">
+
+            <h2 class="section-heading">
+                RCB Champions Gallery
+            </h2>
+
+            <p class="gallery-intro">
+                Explore the exciting moments of Royal Challengers Bengaluru.
+                Select any image to view it larger.
+            </p>
+
+            <div class="gallery-grid">
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200"
+                        data-caption="Cricket Stadium">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600"
+                            alt="Cricket stadium"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Stadium
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200"
+                        data-caption="Cricket Ground">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600"
+                            alt="Cricket ground"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Ground
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200"
+                        data-caption="Cricket Match">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600"
+                            alt="Cricket match"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Match
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200"
+                        data-caption="Cricket Action">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600"
+                            alt="Cricket action"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Action
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=1200"
+                        data-caption="Stadium Moments">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?w=600"
+                            alt="Stadium moments"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Stadium Moments
+                    </p>
+
+                </article>
+
+                <article class="gallery-card">
+
+                    <button class="gallery-open" type="button"
+                        data-full="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=1200"
+                        data-caption="Cricket Celebration">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1531415074968-036ba1b575da?w=600"
+                            alt="Cricket celebration"
+                            loading="lazy"
+                            width="600"
+                            height="450">
+
+                    </button>
+
+                    <p class="gallery-caption">
+                        Cricket Celebration
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- LIGHTBOX -->
+        <div class="lightbox"
+             id="lightbox"
+             role="dialog"
+             aria-modal="true"
+             aria-label="Expanded gallery image"
+             aria-hidden="true">
+
+            <button class="lightbox-close"
+                    id="lightbox-close"
+                    type="button"
+                    aria-label="Close image viewer">
+
+                &times;
+
+            </button>
+
+            <div class="lightbox-content">
+
+                <img class="lightbox-image"
+                     id="lightbox-image"
+                     src=""
+                     alt="">
+
+                <p class="lightbox-caption"
+                   id="lightbox-caption">
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- MATCH UPDATES -->
+        <section id="race-info">
+
+            <h2 class="section-heading">
+                Cricket Match Updates
+            </h2>
+
+            <article class="race-card">
+
+                <span class="card-status">CHAMPIONS</span>
+
+                <h3>Royal Challengers Bengaluru</h3>
+
+                <p>
+                    Celebrate the Royal Challengers Bengaluru and their
+                    exciting journey in the world of cricket.
+                    One team, one dream and a passionate fanbase.
+                </p>
+
+            </article>
+
+            <article class="race-card">
+
+                <span class="card-status">TEAM NEWS</span>
+
+                <h3>Team Preparation</h3>
+
+                <p>
+                    Players prepare for important matches through batting
+                    practice, bowling sessions and fielding drills.
+                </p>
+
+            </article>
+
+            <article class="race-card">
+
+                <span class="card-status">UPDATES</span>
+
+                <h3>Player Performance</h3>
+
+                <p>
+                    Follow exciting centuries, wickets, sixes,
+                    outstanding catches and match-winning performances.
+                </p>
+
+            </article>
+
+            <!-- MATCH SCHEDULE -->
+            <h2 class="section-heading" id="schedule">
+                Cricket Match Schedule
+            </h2>
+
+            <div class="schedule">
+
+                <div class="schedule-item">
+                    <strong>09:00 AM — Practice Session</strong>
+                    <p>Players prepare for the upcoming match.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>09:30 AM — Toss</strong>
+                    <p>Team captains participate in the toss.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>10:00 AM — First Innings</strong>
+                    <p>The first team starts batting.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>01:30 PM — Second Innings</strong>
+                    <p>The second team starts chasing the target.</p>
+                </div>
+
+                <div class="schedule-item">
+                    <strong>04:30 PM — Match Result</strong>
+                    <p>The winning team celebrates its victory.</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- REGISTRATION FORM -->
+        <section class="form-section" id="application">
+
+            <h2>Player Registration Form</h2>
+
+            <form id="registration-form" action="#" method="post">
+
+                <label for="full-name">Full Name</label>
+
+                <input
+                    id="full-name"
+                    name="full-name"
+                    type="text"
+                    placeholder="Enter your name"
+                    required>
+
+                <label for="email">Email</label>
+
+                <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Enter your email"
+                    required>
+
+                <label for="role">Player Role</label>
+
+                <select id="role" name="role">
+                    <option>Batsman</option>
+                    <option>Bowler</option>
+                    <option>All-Rounder</option>
+                    <option>Wicket Keeper</option>
+                    <option>Captain</option>
+                </select>
+
+                <label for="reason">
+                    Why do you want to join Cricket Zone?
+                </label>
+
+                <textarea
+                    id="reason"
+                    name="reason"
+                    rows="4"
+                    placeholder="Enter your reason">
+                </textarea>
+
+                <button type="submit" id="register-btn">
+                    Register Now
+                </button>
+                <p class="form-feedback" id="registration-feedback" aria-live="polite"></p>
+
+            </form>
+
+        </section>
+
+        <section class="form-section endpoint-section"
+                 id="endpoint-management"
+                 aria-labelledby="endpoint-title">
+            <h2 id="endpoint-title">RCB Match Data Manager</h2>
+            <div class="endpoint-toolbar">
+                <h3>Match Updates</h3>
+                <button type="button" id="refresh-match-updates">
+                    Refresh Updates
+                </button>
+            </div>
+
+            <p class="endpoint-status"
+               id="endpoint-status"
+               role="status"
+               aria-live="polite">Loading match updates...</p>
+
+            <div class="endpoint-update-list" id="endpoint-update-list"></div>
+
+            <form class="endpoint-form" id="match-update-form">
+                <h3 id="match-form-heading">Add a Match Update</h3>
+
+                <label for="match-update-title">Update Title</label>
+                <input id="match-update-title"
+                       name="title"
+                       type="text"
+                       minlength="3"
+                       maxlength="80"
+                       placeholder="Example: RCB takes an early wicket"
+                       required>
+
+                <label for="match-update-body">Update Details</label>
+                <textarea id="match-update-body"
+                          name="body"
+                          rows="4"
+                          minlength="5"
+                          maxlength="400"
+                          placeholder="Write a short match update"
+                          required></textarea>
+
+                <div class="endpoint-form-actions">
+                    <button type="submit" id="save-match-update">
+                        Publish Update
+                    </button>
+                    <button type="button" id="cancel-match-edit" hidden>
+                        Cancel Edit
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- PRACTICUM 13: TASK MANAGER -->
+        <section class="form-section task-manager-section"
+                 id="task-manager"
+                 aria-labelledby="task-manager-title">
+
+            <h2 id="task-manager-title">RCB Match Day Task Manager</h2>
+
+            <div class="task-toolbar">
+                <div class="task-filter-group">
+                    <label for="task-filter">Show</label>
+                    <select id="task-filter">
+                        <option value="all">All Tasks</option>
+                        <option value="active">Active</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <button type="button" id="clear-completed-tasks" disabled>
+                    Clear Completed
+                </button>
+            </div>
+
+            <p class="task-status"
+               id="task-status"
+               role="status"
+               aria-live="polite"></p>
+
+            <div class="task-list" id="task-list"></div>
+
+            <form class="task-form" id="task-form">
+                <h3 id="task-form-heading">Add Task</h3>
+
+                <div class="task-form-fields">
+                    <div class="task-form-field">
+                        <label for="task-title">Task</label>
+                        <input id="task-title"
+                               name="task-title"
+                               type="text"
+                               minlength="3"
+                               maxlength="80"
+                               placeholder="Example: Confirm the playing XI"
+                               required>
+                    </div>
+
+                    <div class="task-form-field">
+                        <label for="task-due-date">Due Date</label>
+                        <input id="task-due-date"
+                               name="task-due-date"
+                               type="date">
+                    </div>
+
+                    <div class="task-form-field">
+                        <label for="task-priority">Priority</label>
+                        <select id="task-priority" name="task-priority">
+                            <option value="high">High</option>
+                            <option value="medium" selected>Normal</option>
+                            <option value="low">Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="task-form-actions">
+                    <button type="submit" id="save-task">Add Task</button>
+                    <button type="button"
+                            class="cancel-task-edit"
+                            id="cancel-task-edit"
+                            hidden>Cancel Edit</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- PRACTICUM 14: INTERACTIVE RCB QUIZ -->
+        <section class="form-section quiz-section"
+                 id="interactive-quiz"
+                 aria-labelledby="quiz-title">
+
+            <h2 id="quiz-title">RCB Cricket Quiz</h2>
+
+            <div class="quiz-screen" id="quiz-start-screen">
+                <button class="quiz-action" type="button" id="start-quiz">
+                    Start Quiz
+                </button>
+            </div>
+
+            <div class="quiz-screen" id="quiz-question-screen" hidden>
+                <p class="quiz-progress" id="quiz-progress" role="status"></p>
+                <h3 class="quiz-question" id="quiz-question"></h3>
+                <div class="quiz-options" id="quiz-options"></div>
+                <p class="quiz-feedback" id="quiz-feedback" aria-live="polite"></p>
+                <button class="quiz-action" type="button" id="quiz-next" disabled>
+                    Next Question
+                </button>
+            </div>
+
+            <div class="quiz-screen quiz-result" id="quiz-results" hidden>
+                <h3>Quiz Complete</h3>
+                <p class="quiz-score" id="quiz-score" aria-live="polite"></p>
+                <button class="quiz-action" type="button" id="quiz-restart">
+                    Play Again
+                </button>
+            </div>
+        </section>
+
+        <!-- PRACTICUM 10: DOM ELEMENT INTERACTION -->
+        <!-- PRACTICUM 11: CRICKET GEAR ORDER WITH QUANTITY VALIDATION -->
+        <section class="form-section gear-order-section"
+                 id="gear-order"
+                 aria-labelledby="gear-order-title">
+
+            <h2 id="gear-order-title">Match Day Cricket Gear Store</h2>
+            <p class="gear-order-intro">
+                Choose whole-number quantities for RCB gear. The bill updates automatically.
+                Prices shown are sample values for this page.
+            </p>
+
+            <form id="gear-order-form" action="#" method="post">
+
+                <div class="gear-products">
+
+                    <article class="gear-option">
+                        <h3>RCB Jersey</h3>
+                        <p>Rs. 1,200 each</p>
+                        <label for="jersey-quantity">Quantity</label>
+                        <input id="jersey-quantity"
+                               name="jersey-quantity"
+                               class="gear-quantity"
+                               type="number"
+                               min="0"
+                               step="1"
+                               value="0"
+                               inputmode="numeric"
+                               data-price="1200"
+                               required>
+                    </article>
+
+                    <article class="gear-option">
+                        <h3>RCB Cap</h3>
+                        <p>Rs. 450 each</p>
+                        <label for="cap-quantity">Quantity</label>
+                        <input id="cap-quantity"
+                               name="cap-quantity"
+                               class="gear-quantity"
+                               type="number"
+                               min="0"
+                               step="1"
+                               value="0"
+                               inputmode="numeric"
+                               data-price="450"
+                               required>
+                    </article>
+
+                    <article class="gear-option">
+                        <h3>Cricket Bat</h3>
+                        <p>Rs. 2,500 each</p>
+                        <label for="bat-quantity">Quantity</label>
+                        <input id="bat-quantity"
+                               name="bat-quantity"
+                               class="gear-quantity"
+                               type="number"
+                               min="0"
+                               step="1"
+                               value="0"
+                               inputmode="numeric"
+                               data-price="2500"
+                               required>
+                    </article>
+
+                    <article class="gear-option">
+                        <h3>Cricket Ball</h3>
+                        <p>Rs. 350 each</p>
+                        <label for="ball-quantity">Quantity</label>
+                        <input id="ball-quantity"
+                               name="ball-quantity"
+                               class="gear-quantity"
+                               type="number"
+                               min="0"
+                               step="1"
+                               value="0"
+                               inputmode="numeric"
+                               data-price="350"
+                               required>
+                    </article>
+
+                </div>
+
+                <div class="gear-bill">
+                    <span>Total Price</span>
+                    <output id="gear-total" aria-live="polite">Rs. 0</output>
+                </div>
+
+                <p class="gear-order-feedback"
+                   id="gear-order-feedback"
+                   role="status"
+                   aria-live="polite"></p>
+
+                <button type="submit" id="place-gear-order">
+                    Place Order
+                </button>
+
+            </form>
+        </section>
+
+            <h3>1. Update Live Match Score</h3>
+            <div class="dom-control">
+                <label for="dom-score">Enter the latest RCB score:</label>
+                <input type="text" id="dom-score" placeholder="Example: 185/4 (20 overs)">
+            </div>
+            <div class="dom-actions">
+                <button type="button" id="update-score-btn">Update Score</button>
+                <button type="button" id="reset-score-btn">Reset Score</button>
+            </div>
+            <p class="dom-message" id="live-score" aria-live="polite">
+                Current Score: Waiting for an update
+            </p>
+
+            <h3>2. Change Team Status</h3>
+            <div class="dom-control">
+                <label for="team-status">Choose the team status:</label>
+                <select id="team-status">
+                    <option value="Ready for the Match">Ready for the Match</option>
+                    <option value="Practice Session in Progress">Practice Session in Progress</option>
+                    <option value="Match in Progress">Match in Progress</option>
+                    <option value="Match Completed">Match Completed</option>
+                </select>
+            </div>
+            <p class="dom-message" id="status-display" aria-live="polite">
+                Team Status: Ready for the Match
+            </p>
+
+            <h3>3. Add a Cricket Update</h3>
+            <div class="dom-control">
+                <label for="dom-update">Enter a short cricket update:</label>
+                <input type="text" id="dom-update" placeholder="Type a team update">
+            </div>
+            <div class="dom-actions">
+                <button type="button" id="add-update-btn">Add Update</button>
+                <button type="button" id="clear-updates-btn">Clear Updates</button>
+            </div>
+            <div id="dom-update-feed" aria-live="polite">
+                <p class="dom-feed-item">Your new updates will appear here.</p>
+            </div>
+        </section>
+
+</main>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+
+    <p>&copy; 2026 RCB Cricket Zone | All Rights Reserved</p>
+
+    <p>Play Bold. Play Royal. Forever RCB!</p>
+
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+
+/* PRACTICUM 9: ANIMATION CONTROLS */
+
+const announcement =
+    document.getElementById("announcement-track");
+
+const pauseButton =
+    document.getElementById("pause-btn");
+
+const playButton =
+    document.getElementById("play-btn");
+
+const restartButton =
+    document.getElementById("restart-btn");
+
+/* PAUSE ANIMATION */
+pauseButton.addEventListener("click", function() {
+
+    announcement.style.animationPlayState = "paused";
+
+});
+
+/* PLAY ANIMATION */
+playButton.addEventListener("click", function() {
+
+    announcement.style.animationPlayState = "running";
+
+});
+
+/* RESTART ANIMATION */
+restartButton.addEventListener("click", function() {
+
+    announcement.style.animation = "none";
+
+    void announcement.offsetWidth;
+
+    announcement.style.animation = "slideText 14s linear infinite";
+
+});
+
+/* IMAGE LIGHTBOX */
+
+const galleryButtons =
+    document.querySelectorAll(".gallery-open");
+
+const lightbox =
+    document.getElementById("lightbox");
+
+const lightboxImage =
+    document.getElementById("lightbox-image");
+
+const lightboxCaption =
+    document.getElementById("lightbox-caption");
+
+const closeLightbox =
+    document.getElementById("lightbox-close");
+
+let previousFocus = null;
+
+/* OPEN LIGHTBOX */
+function openLightbox(button) {
+
+    previousFocus = button;
+
+    lightboxImage.src = button.dataset.full;
+
+    lightboxImage.alt =
+        button.querySelector("img").alt;
+
+    lightboxCaption.textContent =
+        button.dataset.caption;
+
+    lightbox.classList.add("open");
+
+    lightbox.setAttribute("aria-hidden", "false");
+
+    closeLightbox.focus();
+
+}
+
+/* CLOSE LIGHTBOX */
+function hideLightbox() {
+
+    lightbox.classList.remove("open");
+
+    lightbox.setAttribute("aria-hidden", "true");
+
+    lightboxImage.src = "";
+
+    if (previousFocus) {
+        previousFocus.focus();
+    }
+
+}
+
+/* GALLERY CLICK EVENT */
+galleryButtons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+
+        openLightbox(button);
+
+    });
+
+});
+
+/* CLOSE BUTTON */
+closeLightbox.addEventListener("click", hideLightbox);
+
+/* CLICK OUTSIDE TO CLOSE */
+lightbox.addEventListener("click", function(event) {
+
+    if (event.target === lightbox) {
+
+        hideLightbox();
+
+    }
+
+});
+
+/* ESCAPE KEY TO CLOSE */
+document.addEventListener("keydown", function(event) {
+
+    if (
+        event.key === "Escape" &&
+        lightbox.classList.contains("open")
+    ) {
+
+        hideLightbox();
+
+    }
+
+});
+
+
+
+/* =========================================================
+   PRACTICUM 10: DOM ELEMENTS
+   1. Selecting DOM elements
+   2. Adding event listeners
+   3. Manipulating DOM properties and content
+   ========================================================= */
+
+/* 1. SELECTING DOM ELEMENTS
+   getElementById() selects an element using its ID.
+   querySelector() selects the first matching CSS selector.
+*/
+const scoreInput = document.getElementById("dom-score");
+const scoreDisplay = document.querySelector("#live-score");
+const updateScoreButton = document.getElementById("update-score-btn");
+const resetScoreButton = document.getElementById("reset-score-btn");
+
+const teamStatus = document.getElementById("team-status");
+const statusDisplay = document.querySelector("#status-display");
+
+const updateInput = document.getElementById("dom-update");
+const updateFeed = document.querySelector("#dom-update-feed");
+const addUpdateButton = document.getElementById("add-update-btn");
+const clearUpdatesButton = document.getElementById("clear-updates-btn");
+
+/* 2. ADDING EVENT LISTENERS
+   click event: runs when a button is clicked.
+*/
+updateScoreButton.addEventListener("click", function () {
+    const enteredScore = scoreInput.value.trim();
+
+    if (enteredScore === "") {
+        scoreDisplay.textContent = "Please enter a score before updating.";
+        scoreDisplay.classList.remove("success");
+        return;
+    }
+
+    // 3. MANIPULATING DOM CONTENT AND CSS CLASSES
+    scoreDisplay.textContent = "Current RCB Score: " + enteredScore;
+    scoreDisplay.classList.add("success");
+});
+
+resetScoreButton.addEventListener("click", function () {
+    scoreInput.value = "";
+    scoreDisplay.textContent = "Current Score: Waiting for an update";
+    scoreDisplay.classList.remove("success");
+});
+
+/* change event: runs when the selected option changes. */
+teamStatus.addEventListener("change", function () {
+    statusDisplay.textContent = "Team Status: " + teamStatus.value;
+    statusDisplay.style.borderLeft = "4px solid #b5122b";
+});
+
+/* input event: gives feedback while the user types. */
+updateInput.addEventListener("input", function () {
+    if (updateInput.value.trim().length > 0) {
+        updateInput.style.borderColor = "#b5122b";
+    } else {
+        updateInput.style.borderColor = "#ccc";
+    }
+});
+
+/* Create and insert a new HTML element dynamically. */
+addUpdateButton.addEventListener("click", function () {
+    const updateText = updateInput.value.trim();
+
+    if (updateText === "") {
+        updateInput.setAttribute("aria-invalid", "true");
+        updateInput.focus();
+        return;
+    }
+
+    updateInput.removeAttribute("aria-invalid");
+
+    // createElement() creates a new DOM element.
+    const newUpdate = document.createElement("p");
+
+    // textContent safely inserts text without interpreting it as HTML.
+    newUpdate.textContent = updateText;
+    newUpdate.classList.add("dom-feed-item");
+
+    // appendChild() adds the new element to the page.
+    updateFeed.appendChild(newUpdate);
+
+    updateInput.value = "";
+    updateInput.style.borderColor = "#ccc";
+});
+
+clearUpdatesButton.addEventListener("click", function () {
+    // innerHTML clears the update area and adds a default message.
+    updateFeed.innerHTML = '<p class="dom-feed-item">No updates available.</p>';
+});
+
+/* PRACTICUM 10: REGISTRATION FORM DOM VALIDATION */
+const registrationForm = document.getElementById("registration-form");
+const registrationFeedback = document.querySelector("#registration-feedback");
+const fullNameInput = document.getElementById("full-name");
+const emailInput = document.getElementById("email");
+const playerRole = document.getElementById("role");
+
+/* input events validate fields as the user types. */
+fullNameInput.addEventListener("input", function () {
+    if (fullNameInput.value.trim().length >= 2) {
+        fullNameInput.style.borderColor = "green";
+    } else {
+        fullNameInput.style.borderColor = "#b5122b";
+    }
+});
+
+emailInput.addEventListener("input", function () {
+    emailInput.style.borderColor =
+        emailInput.validity.valid ? "green" : "#b5122b";
+});
+
+/* submit event prevents page reload and displays a result in the DOM. */
+registrationForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const enteredName = fullNameInput.value.trim();
+    const enteredEmail = emailInput.value.trim();
+
+    if (enteredName.length < 2) {
+        registrationFeedback.textContent = "Please enter a valid name (at least 2 characters).";
+        registrationFeedback.classList.remove("success");
+        fullNameInput.focus();
+        return;
+    }
+
+    if (!emailInput.validity.valid || enteredEmail === "") {
+        registrationFeedback.textContent = "Please enter a valid email address.";
+        registrationFeedback.classList.remove("success");
+        emailInput.focus();
+        return;
+    }
+
+    registrationFeedback.textContent =
+        "Thank you, " + enteredName + "! Your player registration details are ready. Selected role: " +
+        playerRole.value + ".";
+    registrationFeedback.classList.add("success");
+
+    // Reset the form fields after displaying the confirmation.
+    registrationForm.reset();
+    fullNameInput.style.borderColor = "#ccc";
+    emailInput.style.borderColor = "#ccc";
+});
+
+/* PRACTICUM 11: CRICKET GEAR ORDER VALIDATION AND BILL CALCULATION */
+const gearOrderForm = document.getElementById("gear-order-form");
+const gearQuantityInputs = Array.from(
+    gearOrderForm.querySelectorAll(".gear-quantity")
+);
+const gearTotal = document.getElementById("gear-total");
+const gearOrderFeedback = document.getElementById("gear-order-feedback");
+
+function calculateGearTotal() {
+    let total = 0;
+
+    for (const input of gearQuantityInputs) {
+        if (!input.validity.valid) {
+            gearTotal.textContent = "Enter valid quantities";
+            return null;
+        }
+
+        total += Number(input.value) * Number(input.dataset.price);
+    }
+
+    gearTotal.textContent = "Rs. " + total.toLocaleString("en-IN");
+    return total;
+}
+
+/* Recalculate the bill as quantities change. */
+gearQuantityInputs.forEach(function (input) {
+    input.addEventListener("input", function () {
+        gearOrderFeedback.textContent = "";
+        gearOrderFeedback.classList.remove("success");
+        calculateGearTotal();
+    });
+});
+
+/* Validate the order and confirm it without reloading the page. */
+gearOrderForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const total = calculateGearTotal();
+
+    if (total === null) {
+        gearOrderForm.reportValidity();
+        return;
+    }
+
+    const totalGearItems = gearQuantityInputs.reduce(function (sum, input) {
+        return sum + Number(input.value);
+    }, 0);
+
+    if (totalGearItems === 0) {
+        gearOrderFeedback.textContent = "Choose at least one item to place your order.";
+        gearOrderFeedback.classList.remove("success");
+        gearQuantityInputs[0].focus();
+        return;
+    }
+
+    gearOrderFeedback.textContent =
+        "Order placed for " + totalGearItems + " gear item(s). Total: Rs. " +
+        total.toLocaleString("en-IN") + ".";
+    gearOrderFeedback.classList.add("success");
+});
+
+/* PRACTICUM 12: FETCH AND REST ENDPOINT DATA MANAGEMENT */
+const matchApiEndpoint = "https://jsonplaceholder.typicode.com/posts";
+const endpointStatus = document.getElementById("endpoint-status");
+const endpointUpdateList = document.getElementById("endpoint-update-list");
+const matchUpdateForm = document.getElementById("match-update-form");
+const matchUpdateTitle = document.getElementById("match-update-title");
+const matchUpdateBody = document.getElementById("match-update-body");
+const matchFormHeading = document.getElementById("match-form-heading");
+const saveMatchUpdateButton = document.getElementById("save-match-update");
+const cancelMatchEditButton = document.getElementById("cancel-match-edit");
+const refreshMatchUpdatesButton = document.getElementById("refresh-match-updates");
+
+let matchUpdateRecords = [];
+let editingMatchUpdateKey = null;
+let localMatchUpdateCounter = 1;
+
+function setEndpointStatus(message, state) {
+    endpointStatus.textContent = message;
+    endpointStatus.classList.toggle("success", state === "success");
+}
+
+async function sendEndpointRequest(url, method, data) {
+    const options = {
+        method: method || "GET",
+        headers: { "Accept": "application/json" }
+    };
+
+    if (data) {
+        options.headers["Content-Type"] = "application/json; charset=UTF-8";
+        options.body = JSON.stringify(data);
+    }
+
+    const response = await fetch(url, options);
+
+    if (!response.ok) {
+        throw new Error("The endpoint returned HTTP " + response.status + ".");
+    }
+
+    if (options.method === "DELETE") {
+        return null;
+    }
+
+    return response.json();
+}
+
+function renderMatchUpdates() {
+    endpointUpdateList.replaceChildren();
+
+    if (matchUpdateRecords.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.textContent = "No match updates are available yet.";
+        endpointUpdateList.appendChild(emptyMessage);
+        return;
+    }
+
+    matchUpdateRecords.forEach(function (record) {
+        const card = document.createElement("article");
+        card.className = "endpoint-update-card";
+
+        const heading = document.createElement("h4");
+        heading.textContent = record.title;
+
+        const details = document.createElement("p");
+        details.textContent = record.body;
+
+        const actions = document.createElement("div");
+        actions.className = "endpoint-update-actions";
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", function () {
+            editingMatchUpdateKey = record.key;
+            matchUpdateTitle.value = record.title;
+            matchUpdateBody.value = record.body;
+            matchFormHeading.textContent = "Edit Match Update";
+            saveMatchUpdateButton.textContent = "Save Changes";
+            cancelMatchEditButton.hidden = false;
+            matchUpdateTitle.focus();
+            setEndpointStatus("Editing: " + record.title, "success");
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "delete-update";
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", async function () {
+            if (!window.confirm("Delete this match update?")) {
+                return;
+            }
+
+            deleteButton.disabled = true;
+            try {
+                await sendEndpointRequest(
+                    matchApiEndpoint + "/" + record.apiId,
+                    "DELETE"
+                );
+                matchUpdateRecords = matchUpdateRecords.filter(function (item) {
+                    return item.key !== record.key;
+                });
+                if (editingMatchUpdateKey === record.key) {
+                    resetMatchUpdateForm();
+                }
+                renderMatchUpdates();
+                setEndpointStatus(
+                    "Update deleted. The demo endpoint does not retain changes after reload.",
+                    "success"
+                );
+            } catch (error) {
+                setEndpointStatus(
+                    "Could not delete the update. " + error.message,
+                    "error"
+                );
+                deleteButton.disabled = false;
+            }
+        });
+
+        actions.append(editButton, deleteButton);
+        card.append(heading, details, actions);
+        endpointUpdateList.appendChild(card);
+    });
+}
+
+async function loadMatchUpdates() {
+    refreshMatchUpdatesButton.disabled = true;
+    setEndpointStatus("Loading match updates from the REST endpoint...", "");
+
+    try {
+        const posts = await sendEndpointRequest(
+            matchApiEndpoint + "?userId=1",
+            "GET"
+        );
+
+        if (!Array.isArray(posts)) {
+            throw new Error("The endpoint returned data in an unexpected format.");
+        }
+
+        matchUpdateRecords = posts.slice(0, 5).map(function (post) {
+            return {
+                key: "api-" + post.id,
+                apiId: post.id,
+                title: post.title,
+                body: post.body
+            };
+        });
+        renderMatchUpdates();
+        setEndpointStatus(
+            "Loaded " + matchUpdateRecords.length + " sample records from the endpoint.",
+            "success"
+        );
+    } catch (error) {
+        renderMatchUpdates();
+        setEndpointStatus(
+            "Unable to load endpoint data. Check your connection and refresh. " + error.message,
+            "error"
+        );
+    } finally {
+        refreshMatchUpdatesButton.disabled = false;
+    }
+}
+
+function resetMatchUpdateForm() {
+    matchUpdateForm.reset();
+    editingMatchUpdateKey = null;
+    matchFormHeading.textContent = "Add a Match Update";
+    saveMatchUpdateButton.textContent = "Publish Update";
+    cancelMatchEditButton.hidden = true;
+}
+
+cancelMatchEditButton.addEventListener("click", resetMatchUpdateForm);
+refreshMatchUpdatesButton.addEventListener("click", loadMatchUpdates);
+
+matchUpdateForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+
+    const payload = {
+        title: matchUpdateTitle.value.trim(),
+        body: matchUpdateBody.value.trim(),
+        userId: 1
+    };
+
+    if (!matchUpdateForm.reportValidity()) {
+        return;
+    }
+
+    if (payload.title.length < 3 || payload.body.length < 5) {
+        setEndpointStatus(
+            "Enter a title of at least 3 characters and details of at least 5 characters.",
+            "error"
+        );
+        return;
+    }
+
+    saveMatchUpdateButton.disabled = true;
+
+    try {
+        if (editingMatchUpdateKey !== null) {
+            const currentRecord = matchUpdateRecords.find(function (record) {
+                return record.key === editingMatchUpdateKey;
+            });
+
+            if (!currentRecord) {
+                throw new Error("The selected update could not be found.");
+            }
+
+            await sendEndpointRequest(
+                matchApiEndpoint + "/" + currentRecord.apiId,
+                "PUT",
+                { ...payload, id: currentRecord.apiId }
+            );
+
+            matchUpdateRecords = matchUpdateRecords.map(function (record) {
+                return record.key === editingMatchUpdateKey
+                    ? { ...record, title: payload.title, body: payload.body }
+                    : record;
+            });
+            resetMatchUpdateForm();
+            renderMatchUpdates();
+            setEndpointStatus(
+                "Match update edited successfully. The demo endpoint simulates this change.",
+                "success"
+            );
+        } else {
+            const createdRecord = await sendEndpointRequest(
+                matchApiEndpoint,
+                "POST",
+                payload
+            );
+
+            matchUpdateRecords.unshift({
+                key: "local-" + localMatchUpdateCounter++,
+                apiId: createdRecord.id,
+                title: payload.title,
+                body: payload.body
+            });
+            resetMatchUpdateForm();
+            renderMatchUpdates();
+            setEndpointStatus(
+                "Match update published successfully. It is shown here until the page reloads.",
+                "success"
+            );
+        }
+    } catch (error) {
+        setEndpointStatus(
+            "Could not save the update. Check your connection and try again. " + error.message,
+            "error"
+        );
+    } finally {
+        saveMatchUpdateButton.disabled = false;
+    }
+});
+
+loadMatchUpdates();
+
+/* PRACTICUM 13: TASK ADDITION, EDITING, FILTERING, AND PERSISTENCE */
+const taskStorageKey = "rcbMatchDayTasks";
+const taskForm = document.getElementById("task-form");
+const taskTitleInput = document.getElementById("task-title");
+const taskDueDateInput = document.getElementById("task-due-date");
+const taskPriorityInput = document.getElementById("task-priority");
+const taskFormHeading = document.getElementById("task-form-heading");
+const saveTaskButton = document.getElementById("save-task");
+const cancelTaskEditButton = document.getElementById("cancel-task-edit");
+const taskFilter = document.getElementById("task-filter");
+const clearCompletedTasksButton = document.getElementById("clear-completed-tasks");
+const taskStatus = document.getElementById("task-status");
+const taskList = document.getElementById("task-list");
+
+let taskRecords = [];
+let editingTaskId = null;
+let taskStorageAvailable = true;
+
+function setTaskStatus(message, state) {
+    taskStatus.textContent = message;
+    taskStatus.classList.toggle("success", state === "success");
+    taskStatus.classList.toggle("error", state === "error");
+}
+
+function loadTaskRecords() {
+    try {
+        const savedTasks = localStorage.getItem(taskStorageKey);
+        const parsedTasks = savedTasks ? JSON.parse(savedTasks) : [];
+
+        taskRecords = Array.isArray(parsedTasks)
+            ? parsedTasks
+                .filter(function (task) {
+                    return task && typeof task.title === "string";
+                })
+                .map(function (task) {
+                    return {
+                        id: String(task.id || Date.now() + Math.random()),
+                        title: task.title,
+                        dueDate: typeof task.dueDate === "string" ? task.dueDate : "",
+                        priority: ["high", "medium", "low"].includes(task.priority)
+                            ? task.priority
+                            : "medium",
+                        completed: Boolean(task.completed)
+                    };
+                })
+            : [];
+    } catch (error) {
+        taskStorageAvailable = false;
+        taskRecords = [];
+    }
+}
+
+function saveTaskRecords() {
+    try {
+        localStorage.setItem(taskStorageKey, JSON.stringify(taskRecords));
+        return true;
+    } catch (error) {
+        taskStorageAvailable = false;
+        setTaskStatus("Browser storage is unavailable. Tasks may not persist.", "error");
+        return false;
+    }
+}
+
+function renderTaskRecords() {
+    taskList.replaceChildren();
+
+    const filterValue = taskFilter.value;
+    const visibleTasks = taskRecords.filter(function (task) {
+        if (filterValue === "active") return !task.completed;
+        if (filterValue === "completed") return task.completed;
+        return true;
+    });
+
+    const completedCount = taskRecords.filter(function (task) {
+        return task.completed;
+    }).length;
+
+    clearCompletedTasksButton.disabled = completedCount === 0;
+
+    if (visibleTasks.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.className = "task-empty";
+        emptyMessage.textContent = taskRecords.length === 0
+            ? "No tasks yet."
+            : "No tasks match this filter.";
+        taskList.appendChild(emptyMessage);
+    }
+
+    visibleTasks.forEach(function (task) {
+        const card = document.createElement("article");
+        card.className = task.completed ? "task-card completed" : "task-card";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.className = "task-check";
+        checkbox.checked = task.completed;
+        checkbox.setAttribute(
+            "aria-label",
+            (task.completed ? "Mark as active: " : "Mark as completed: ") + task.title
+        );
+        checkbox.addEventListener("change", function () {
+            task.completed = checkbox.checked;
+            const saved = saveTaskRecords();
+            renderTaskRecords();
+            if (saved) {
+                setTaskStatus(task.completed ? "Task completed." : "Task reopened.", "success");
+            }
+        });
+
+        const content = document.createElement("div");
+        content.className = "task-card-content";
+
+        const heading = document.createElement("h3");
+        heading.textContent = task.title;
+        content.appendChild(heading);
+
+        const metadata = document.createElement("div");
+        metadata.className = "task-meta";
+
+        const priority = document.createElement("span");
+        priority.className = "task-priority " + task.priority;
+        priority.textContent = task.priority === "medium"
+            ? "Normal Priority"
+            : task.priority.charAt(0).toUpperCase() + task.priority.slice(1) + " Priority";
+        metadata.appendChild(priority);
+
+        if (task.dueDate) {
+            const dueDate = document.createElement("time");
+            dueDate.dateTime = task.dueDate;
+            dueDate.textContent = "Due " + new Date(
+                task.dueDate + "T00:00:00"
+            ).toLocaleDateString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+            metadata.appendChild(dueDate);
+        }
+
+        content.appendChild(metadata);
+
+        const actions = document.createElement("div");
+        actions.className = "task-card-actions";
+
+        const editButton = document.createElement("button");
+        editButton.type = "button";
+        editButton.textContent = "Edit";
+        editButton.addEventListener("click", function () {
+            editingTaskId = task.id;
+            taskTitleInput.value = task.title;
+            taskDueDateInput.value = task.dueDate;
+            taskPriorityInput.value = task.priority;
+            taskFormHeading.textContent = "Edit Task";
+            saveTaskButton.textContent = "Save Changes";
+            cancelTaskEditButton.hidden = false;
+            taskTitleInput.focus();
+        });
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "delete-task";
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", function () {
+            if (!window.confirm("Delete this task?")) return;
+
+            taskRecords = taskRecords.filter(function (item) {
+                return item.id !== task.id;
+            });
+            if (editingTaskId === task.id) resetTaskForm();
+            const saved = saveTaskRecords();
+            renderTaskRecords();
+            if (saved) setTaskStatus("Task deleted.", "success");
+        });
+
+        actions.append(editButton, deleteButton);
+        card.append(checkbox, content, actions);
+        taskList.appendChild(card);
+    });
+
+    if (!taskStorageAvailable) {
+        setTaskStatus("Browser storage is unavailable. Tasks may not persist.", "error");
+    } else {
+        setTaskStatus(
+            completedCount + " of " + taskRecords.length + " tasks complete.",
+            ""
+        );
+    }
+}
+
+function resetTaskForm() {
+    taskForm.reset();
+    taskTitleInput.setCustomValidity("");
+    editingTaskId = null;
+    taskFormHeading.textContent = "Add Task";
+    saveTaskButton.textContent = "Add Task";
+    cancelTaskEditButton.hidden = true;
+}
+
+taskTitleInput.addEventListener("input", function () {
+    taskTitleInput.setCustomValidity("");
+});
+
+taskFilter.addEventListener("change", renderTaskRecords);
+cancelTaskEditButton.addEventListener("click", function () {
+    resetTaskForm();
+    setTaskStatus("Edit cancelled.", "");
+});
+
+clearCompletedTasksButton.addEventListener("click", function () {
+    const completedTasks = taskRecords.filter(function (task) {
+        return task.completed;
+    });
+    if (completedTasks.length === 0) return;
+    if (!window.confirm("Clear all completed tasks?")) return;
+
+    taskRecords = taskRecords.filter(function (task) {
+        return !task.completed;
+    });
+    if (editingTaskId && !taskRecords.some(function (task) {
+        return task.id === editingTaskId;
+    })) {
+        resetTaskForm();
+    }
+    const saved = saveTaskRecords();
+    renderTaskRecords();
+    if (saved) setTaskStatus("Completed tasks cleared.", "success");
+});
+
+taskForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (!taskForm.reportValidity()) return;
+
+    const title = taskTitleInput.value.trim();
+    if (title.length < 3) {
+        taskTitleInput.setCustomValidity("Enter at least 3 non-space characters.");
+        taskTitleInput.reportValidity();
+        return;
+    }
+
+    const taskData = {
+        title: title,
+        dueDate: taskDueDateInput.value,
+        priority: taskPriorityInput.value
+    };
+
+    if (editingTaskId !== null) {
+        taskRecords = taskRecords.map(function (task) {
+            return task.id === editingTaskId ? { ...task, ...taskData } : task;
+        });
+    } else {
+        taskRecords.unshift({
+            id: Date.now().toString(36) + Math.random().toString(36).slice(2),
+            ...taskData,
+            completed: false
+        });
+    }
+
+    const wasEditing = editingTaskId !== null;
+    resetTaskForm();
+    const saved = saveTaskRecords();
+    renderTaskRecords();
+    if (saved) setTaskStatus(wasEditing ? "Task updated." : "Task added.", "success");
+});
+
+loadTaskRecords();
+renderTaskRecords();
+
+/* PRACTICUM 14: QUIZ DATA AND INTERACTION */
+const quizQuestions = [
+    {
+        question: "How many players are on a cricket team?",
+        options: ["9", "10", "11", "12"],
+        answer: 2
+    },
+    {
+        question: "How many legal deliveries make one over?",
+        options: ["4", "5", "6", "8"],
+        answer: 2
+    },
+    {
+        question: "How many runs are scored when the ball reaches the boundary after bouncing?",
+        options: ["2", "3", "4", "6"],
+        answer: 2
+    },
+    {
+        question: "What is a batter's score of 100 called?",
+        options: ["A century", "A maiden", "A hat-trick", "A follow-on"],
+        answer: 0
+    },
+    {
+        question: "What does RCB stand for?",
+        options: [
+            "Royal Cricket Bengaluru",
+            "Royal Challengers Bengaluru",
+            "Rising Champions Bengaluru",
+            "Racing Club Bengaluru"
+        ],
+        answer: 1
+    }
+];
+
+const quizStartScreen = document.getElementById("quiz-start-screen");
+const quizQuestionScreen = document.getElementById("quiz-question-screen");
+const quizResultsScreen = document.getElementById("quiz-results");
+const startQuizButton = document.getElementById("start-quiz");
+const quizProgress = document.getElementById("quiz-progress");
+const quizQuestion = document.getElementById("quiz-question");
+const quizOptions = document.getElementById("quiz-options");
+const quizFeedback = document.getElementById("quiz-feedback");
+const quizNextButton = document.getElementById("quiz-next");
+const quizScore = document.getElementById("quiz-score");
+const quizRestartButton = document.getElementById("quiz-restart");
+
+let currentQuizQuestion = 0;
+let currentQuizScore = 0;
+let quizQuestionAnswered = false;
+
+function renderQuizQuestion() {
+    const item = quizQuestions[currentQuizQuestion];
+
+    quizProgress.textContent =
+        "Question " + (currentQuizQuestion + 1) + " of " + quizQuestions.length;
+    quizQuestion.textContent = item.question;
+    quizOptions.replaceChildren();
+    quizFeedback.textContent = "";
+    quizQuestionAnswered = false;
+    quizNextButton.disabled = true;
+    quizNextButton.textContent = currentQuizQuestion === quizQuestions.length - 1
+        ? "View Score"
+        : "Next Question";
+
+    item.options.forEach(function (option, index) {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "quiz-option-button";
+        button.dataset.optionIndex = String(index);
+        button.textContent = option;
+        quizOptions.appendChild(button);
+    });
+}
+
+function startInteractiveQuiz() {
+    currentQuizQuestion = 0;
+    currentQuizScore = 0;
+    quizStartScreen.hidden = true;
+    quizResultsScreen.hidden = true;
+    quizQuestionScreen.hidden = false;
+    renderQuizQuestion();
+}
+
+function finishInteractiveQuiz() {
+    quizQuestionScreen.hidden = true;
+    quizResultsScreen.hidden = false;
+    quizScore.textContent = currentQuizScore + " / " + quizQuestions.length;
+}
+
+startQuizButton.addEventListener("click", startInteractiveQuiz);
+quizRestartButton.addEventListener("click", startInteractiveQuiz);
+
+/* One delegated handler manages every answer choice. */
+quizOptions.addEventListener("click", function (event) {
+    const selectedButton = event.target.closest("button[data-option-index]");
+    if (!selectedButton || quizQuestionAnswered) return;
+
+    quizQuestionAnswered = true;
+    const selectedAnswer = Number(selectedButton.dataset.optionIndex);
+    const correctAnswer = quizQuestions[currentQuizQuestion].answer;
+    const optionButtons = quizOptions.querySelectorAll("button[data-option-index]");
+
+    optionButtons.forEach(function (button) {
+        button.disabled = true;
+        const optionIndex = Number(button.dataset.optionIndex);
+        if (optionIndex === correctAnswer) {
+            button.classList.add("correct");
+        }
+        if (button === selectedButton && selectedAnswer !== correctAnswer) {
+            button.classList.add("incorrect");
+        }
+    });
+
+    if (selectedAnswer === correctAnswer) {
+        currentQuizScore += 1;
+        quizFeedback.textContent = "Correct!";
+    } else {
+        quizFeedback.textContent = "The highlighted option is correct.";
+    }
+
+    quizNextButton.disabled = false;
+});
+
+quizNextButton.addEventListener("click", function () {
+    if (!quizQuestionAnswered) return;
+
+    if (currentQuizQuestion < quizQuestions.length - 1) {
+        currentQuizQuestion += 1;
+        renderQuizQuestion();
+    } else {
+        finishInteractiveQuiz();
+    }
+});
+
+/* PRACTICUM 15: PERSISTENT THEME TOGGLE */
+const themeStorageKey = "rcbCricketZoneTheme";
+const themeToggleButton = document.getElementById("theme-toggle");
+const themeToggleLabel = document.getElementById("theme-toggle-label");
+const themeToggleIcon = document.getElementById("theme-toggle-icon");
+const systemThemePreference = window.matchMedia("(prefers-color-scheme: dark)");
+
+let savedTheme = null;
+let userSelectedTheme = false;
+
+try {
+    savedTheme = localStorage.getItem(themeStorageKey);
+} catch (error) {
+    savedTheme = null;
+}
+
+if (savedTheme !== "light" && savedTheme !== "dark") {
+    savedTheme = null;
+} else {
+    userSelectedTheme = true;
+}
+
+let activeTheme = savedTheme || (systemThemePreference.matches ? "dark" : "light");
+
+function applyTheme(theme, saveChoice) {
+    activeTheme = theme;
+    document.documentElement.dataset.theme = theme;
+
+    const darkModeIsOn = theme === "dark";
+    themeToggleButton.setAttribute("aria-pressed", String(darkModeIsOn));
+    themeToggleLabel.textContent = darkModeIsOn ? "Light Mode" : "Dark Mode";
+    themeToggleIcon.textContent = darkModeIsOn ? "☀" : "☾";
+
+    if (saveChoice) {
+        userSelectedTheme = true;
+        try {
+            localStorage.setItem(themeStorageKey, theme);
+        } catch (error) {
+            // Keep the selected theme for this page session if storage is unavailable.
+        }
+    }
+}
+
+applyTheme(activeTheme, false);
+
+themeToggleButton.addEventListener("click", function () {
+    applyTheme(activeTheme === "dark" ? "light" : "dark", true);
+});
+
+systemThemePreference.addEventListener("change", function (event) {
+    if (!userSelectedTheme) {
+        applyTheme(event.matches ? "dark" : "light", false);
+    }
+});
+
+</script>
+
+</body>
+</html>
